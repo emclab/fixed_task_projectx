@@ -1,0 +1,77 @@
+<% if false %>
+  <%= render inline: ERB.new(@erb_code).result(binding) %>
+  
+<% else %>
+<div class="pagination"><%= will_paginate models %></div>
+
+<table class="table table-striped">
+  <tr>
+    <th>#</th>
+    <th><%= t('Customer') %></th>
+    <th><%= t('Project Name') %></th>
+    <th><%= t('Project Number') %></th>
+    <th><%= t('Project Status') %></th>
+    <th><%= t('Start Date') %></th>
+    <th><%= t('Project Manager') %></th>
+    <th><%= t('ProjectTaskTemplate') %></th>
+    <th><%= t('Sales') %></th>
+    <th><%= t('Expedite') %></th>
+    <th><%= t('Est Delivery Date') %></th>
+    <th><%= t('Delivery Date') %></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% models.each do |r| %>
+  <tr>
+    <% if has_action_right?('show', params[:controller], r) %>
+        <td><%= link_to r.id, SUBURI + "/authentify/view_handler?index=1&url=#{project_path(r)}"  %></td>
+    <% else %>
+        <td><%= r.id %></td>
+    <% end %>
+  	<% if has_action_right?('show',FixedTaskProjectx.customer_class.to_s.underscore.pluralize, r.customer ) %>
+  	  <td><%= link_to r.customer.short_name, SUBURI + "/authentify/view_handler?index=1&url=#{SUBURI + CGI::escape(eval(FixedTaskProjectx.show_customer_path))}"  %></td>
+  	<% else %>
+  	  <td><%= prt(r, 'customer.short_name') %></td>
+  	<% end %>  	    
+    <td><%= prt(r, :name) %></td> 
+    <td><%= prt(r, :project_num) %></td>
+    <td><%= prt(r, 'status.name') if r.status_id.present? %></td>
+    <td><%= prt(r, :start_date) %></td>
+    <td><%= prt(r, 'project_manager.name') %></td>
+    <td><%= prt(r, 'task_template.name') %></td>
+    <td><%= prt(r, 'customer.sales.name') %></td>
+    <td><%= t(prt(r, :expedite).to_s) %></td>
+    <td><%= prt(r, :est_delivery_date) %></td>
+    <td><%= prt(r, :delivery_date) %></td>
+    <td><%= link_to t('Edit'), SUBURI + "/authentify/view_handler?index=1&url=#{edit_project_path(r)}" , :class => BUTTONS_CLS['action']   if has_action_right?('update', params[:controller], r )  %></td>
+    <td><%= link_to t('Tasks'), SUBURI + "/authentify/view_handler?index=1&url=#{SUBURI + CGI::escape(eval(FixedTaskProjectx.index_task_path))}", :class => BUTTONS_CLS['action']  if has_action_right?('index', FixedTaskProjectx.task_resource, r ) %></td>
+    <td><%= link_to t('Contract'), SUBURI + "/authentify/view_handler?index=1&url=#{SUBURI + CGI::escape(eval(FixedTaskProjectx.index_contract_path))}", :class => BUTTONS_CLS['action']  if has_action_right?('index', FixedTaskProjectx.contract_resource, r ) %></td>
+    <td><%= link_to t('Payment'), SUBURI + "/authentify/view_handler?index=1&url=#{SUBURI + CGI::escape(eval(FixedTaskProjectx.index_payment_path))}", :class => BUTTONS_CLS['action']  if has_action_right?('index', FixedTaskProjectx.payment_resource, r ) %></td>
+  </tr>
+<% end %>
+</table>
+
+<table class="table table-striped">
+  <tr>
+    <th>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to t('Back'), SUBURI + "/authentify/view_handler?index=0", :class => BUTTONS_CLS['action']  %>
+       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	<%= link_to t('New Project'), SUBURI + "/authentify/view_handler?index=1&url=#{new_project_path(:task_template_id => @task_template.id)}", :class => BUTTONS_CLS['action'] if @task_template && has_action_right?('create', params[:controller]) %>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	<%= link_to t('New Project'), SUBURI + "/authentify/view_handler?index=1&url=#{new_project_path}", :class => BUTTONS_CLS['action'] if @task_template.nil? && has_action_right?('create', params[:controller]) %>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	<%= link_to t('Search'), SUBURI + "/authentify/view_handler?index=1&url=#{search_projects_path}", :class => BUTTONS_CLS['action'] if has_action_right?('search', params[:controller]) %>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	<%= link_to t('Stats'), SUBURI + "/authentify/view_handler?index=1&url=#{stats_projects_path}", :class => BUTTONS_CLS['action'] if has_action_right?('stats', params[:controller]) %>
+    </th>
+  </tr>
+</table>
+
+<% end %>
+
+
+
