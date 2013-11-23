@@ -3,7 +3,7 @@ module FixedTaskProjectx
     
     after_initialize :default_init, :if => :new_record?
       
-    attr_accessor :sales_name, :last_updated_by_name, :project_manager_name, :status_name
+    attr_accessor :sales_name, :last_updated_by_name, :project_manager_name, :status_name, :expedite_noupdate, :cancelled_noupdate, :completed_noupdate
 
     attr_accessible :cancelled, :completed, :delivery_date, :end_date, :est_delivery_date, :expedite, :instruction, 
                     :last_updated_by_id, :name, :project_desp, :project_manager_id, :project_num, :sales_id, :start_date, 
@@ -15,12 +15,12 @@ module FixedTaskProjectx
                     :last_updated_by_id, :name, :project_desp, :project_manager_id, :project_num, :sales_id, :start_date, 
                     :status_id, :task_template_id, :customer_id,
                     :customer_name_autocomplete, :sales_id, 
-                    :sales_name, :last_updated_by_name, :project_manager_name, :status_name, 
+                    :sales_name, :last_updated_by_name, :project_manager_name, :status_name, :expedite_noupdate, :cancelled_noupdate, :completed_noupdate, 
                     :as => :role_update
 
 
     attr_accessor :project_id_s, :keyword_s, :start_date_s, :end_date_s, :customer_id_s, :status_s, :expedite_s,
-                  :completion_percent_s, :zone_id_s, :sales_id_s, :project_task_template_id_s, 
+                  :zone_id_s, :sales_id_s, :project_task_template_id_s, 
                   :time_frame_s
 
     attr_accessible :project_id_s, :keyword_s, :start_date_s, :end_date_s, :customer_id_s, :status_s, :expedite_s,
