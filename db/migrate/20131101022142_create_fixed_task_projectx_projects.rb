@@ -3,8 +3,8 @@ class CreateFixedTaskProjectxProjects < ActiveRecord::Migration
     create_table :fixed_task_projectx_projects do |t|
       t.string :name
       t.string :project_num
-      t.integer :task_template_id
       t.integer :customer_id
+      t.integer :task_template_id
       t.text :project_desp
       t.integer :sales_id
       t.date :start_date

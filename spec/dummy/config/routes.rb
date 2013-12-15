@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   mount Kustomerx::Engine => '/kustomerx'
   mount SimpleTypex::Engine => '/simple_typex'
   mount TaskTemplatex::Engine => '/templatex'
+  mount Searchx::Engine => '/searchx'
   
   resource :session
   

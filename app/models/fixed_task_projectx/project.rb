@@ -7,15 +7,15 @@ module FixedTaskProjectx
 
     attr_accessible :cancelled, :completed, :delivery_date, :end_date, :est_delivery_date, :expedite, :instruction, 
                     :last_updated_by_id, :name, :project_desp, :project_manager_id, :project_num, :sales_id, :start_date, 
-                    :status_id, :task_template_id,  :customer_id,
+                    :status_id, :task_template_id,  :customer_id, 
                     :customer_name_autocomplete, :sales_id, 
                     :as => :role_new
                       
     attr_accessible :cancelled, :completed, :delivery_date, :end_date, :est_delivery_date, :expedite, :instruction, 
                     :last_updated_by_id, :name, :project_desp, :project_manager_id, :project_num, :sales_id, :start_date, 
-                    :status_id, :task_template_id, :customer_id,
+                    :status_id, :task_template_id, :customer_id, :category_id,
                     :customer_name_autocomplete, :sales_id, 
-                    :sales_name, :last_updated_by_name, :project_manager_name, :status_name, :expedite_noupdate, :cancelled_noupdate, :completed_noupdate, 
+                    :sales_name, :last_updated_by_name, :project_manager_name, :status_name, :expedite_noupdate, :cancelled_noupdate, :completed_noupdate,
                     :as => :role_update
 
 
@@ -24,7 +24,7 @@ module FixedTaskProjectx
                   :time_frame_s
 
     attr_accessible :project_id_s, :keyword_s, :start_date_s, :end_date_s, :customer_id_s, :status_s, :expedite_s,
-                    :zone_id_s, :sales_id_s, :project_task_template_id_s, :time_frame_s,
+                    :zone_id_s, :sales_id_s, :project_task_template_id_s, :time_frame_s, 
                     :as => :role_search_stats
 
                     

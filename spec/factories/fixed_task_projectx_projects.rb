@@ -19,5 +19,6 @@ FactoryGirl.define do
     expedite false
     status_id 1
     customer_id 1
+    
   end
 end
