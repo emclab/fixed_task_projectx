@@ -3,7 +3,7 @@
   
 <% else %>
 <%= simple_form_for @project do |f| %>
-<%= f.input :name, :label => t('Project Name') %>
+    <%= f.input :name, :label => t('Project Name') %>
     <%= f.input :project_num, :label => t('Project Number'), :readonly => true %>
     <%= f.input :customer_name_autocomplete,:input_html => { data: {autocomplete_source: SUBURI + kustomerx.autocomplete_customers_path}},
                 :label => t('Customer'), :placeholder => "输入关键字选择客户", :required => true %>

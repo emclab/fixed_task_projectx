@@ -40,6 +40,7 @@ zh-CN:
   ProjectStatus         : '项目状态'
   Contracts             : '合同' 
   Payments              : '收款'
+  Payment              : '收款'
   Project Task Templates : '项目任务样板一览'
   Project Task Template : '项目任务'
   Task Definition       : '任务定义一览'

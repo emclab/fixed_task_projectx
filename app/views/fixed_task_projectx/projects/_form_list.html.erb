@@ -43,7 +43,7 @@
     <td><%= prt(r, 'project_manager.name') %></td>
     <td><%= prt(r, 'task_template.name') %></td>
     <td><%= prt(r, 'customer.sales.name') %></td>
-    <td><%= t(prt(r, :expedite).to_s) %></td>
+    <td><%= r.expedite ? t('Yes') : t('No') %></td>
     <td><%= prt(r, :est_delivery_date) %></td>
     <td><%= prt(r, :delivery_date) %></td>
     <td><%= link_to t('Edit'), SUBURI + "/authentify/view_handler?index=1&url=#{edit_project_path(r)}" , :class => BUTTONS_CLS['action']   if has_action_right?('update', params[:controller], r )  %></td>

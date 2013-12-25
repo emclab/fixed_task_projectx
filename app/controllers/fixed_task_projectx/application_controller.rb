@@ -5,6 +5,7 @@ module FixedTaskProjectx
     include Authentify::UsersHelper
     include Authentify::UserPrivilegeHelper
     include Commonx::CommonxHelper
+    include Searchx::SearchHelper
     
     before_filter :require_signin
     before_filter :max_pagination 
@@ -12,31 +13,24 @@ module FixedTaskProjectx
     before_filter :load_session_variable, :only => [:new, :edit]  #for parent_record_id & parent_resource in check_access_right
     after_filter :delete_session_variable, :only => [:create, :update]   #for parent_record_id & parent_resource in check_access_right
     
-    def search
-      @title = params[:controller].camelize.demodulize.tableize.singularize.capitalize + ' Search'  
-      @model, @search_stat = Commonx::CommonxHelper.search(params)
-      @results_url = 'search_results_' + params[:controller].camelize.demodulize.tableize.downcase + '_path'
-      @erb_code = find_config_const('search_params_view')
-    end
-
-    def search_results
-      @title = params[:controller].camelize.demodulize.tableize.singularize.capitalize + ' Search'
-      @s_s_results_details =  Commonx::CommonxHelper.search_results(params, @max_pagination)
-      @erb_code = find_config_const(params[:controller].camelize.demodulize.tableize.singularize.downcase + '_index_view', params[:controller].camelize.deconstantize.tableize.singularize.downcase)
+    def return_customers_by_access_right     
+      access_rights, model_ar_r, has_record_access = access_right_finder('index', FixedTaskProjectx.customer_class.to_s.underscore.pluralize)
+      return [] if access_rights.blank?
+      return model_ar_r #instance_eval(access_rights.sql_code) #.present?
     end
     
-    def stats
-      @title = params[:controller].camelize.demodulize.tableize.singularize.capitalize + ' Stats' 
-      @model, @search_stat = Commonx::CommonxHelper.search(params)
-      @results_url = 'stats_results_' + params[:controller].camelize.demodulize.tableize.downcase + '_path'
-      @erb_code = find_config_const('stats_params_view')
+    def return_projects_by_access_right
+      access_rights, model_ar_r, has_record_access = access_right_finder('index', params[:controller])
+      return [] if access_rights.blank?
+      return model_ar_r 
     end
 
-    def stats_results
-      @title = params[:controller].camelize.demodulize.tableize.singularize.capitalize + ' Stats' 
-      @s_s_results_details =  Commonx::CommonxHelper.search_results(params, @max_pagination)
-      @time_frame = eval(@s_s_results_details.time_frame)
-      @erb_code = find_config_const(params[:controller].camelize.demodulize.tableize.singularize.downcase + '_index_view', params[:controller].camelize.deconstantize.tableize.singularize.downcase)
+    def return_project_task_templates
+      FixedTaskProjectx.task_template_class.where(:active => true).order('ranking_order')
+    end
+    
+    def return_project_types
+      FixedTaskProjectx.project_type_class.where(:active => true).order('ranking_order')
     end
     
     def return_yes_no_cn
