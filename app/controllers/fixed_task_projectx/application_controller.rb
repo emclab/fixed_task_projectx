@@ -12,6 +12,7 @@ module FixedTaskProjectx
     before_filter :check_access_right 
     before_filter :load_session_variable, :only => [:new, :edit]  #for parent_record_id & parent_resource in check_access_right
     after_filter :delete_session_variable, :only => [:create, :update]   #for parent_record_id & parent_resource in check_access_right
+    before_filter :view_in_config?
     
     def return_customers_by_access_right     
       access_rights, model_ar_r, has_record_access = access_right_finder('index', FixedTaskProjectx.customer_class.to_s.underscore.pluralize)
@@ -41,6 +42,10 @@ module FixedTaskProjectx
   
     def max_pagination
       @max_pagination = find_config_const('pagination')
+    end
+    
+    def view_in_config?
+      @view_in_config = Authentify::AuthentifyUtility.load_view_in_config
     end
   end
 end
